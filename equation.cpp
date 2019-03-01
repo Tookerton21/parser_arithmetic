@@ -26,17 +26,17 @@ int Equation::getRes(){
 
 //Main driver to the parser and calls each of the helper function recursively
 int Equation::calcSum(){
-    int dig = (int)getDig();
+    //int dig = getDig();
 
-    res = parseProduct();
-    res = parseSum();
+    //res = parseProduct();
+    int res = parseSum();
 
     return res;
 }
 
 void Equation::print(){
-  cout << "String: " << str << endl;
-  cout << "Vec: ";
+ // cout << "String: " << str << endl;
+ // cout << "Vec: ";
   for(char const& x: vec){
       cout << x;
   }
@@ -53,22 +53,40 @@ void Equation::stringToVec(){
 }
 
 int Equation::getDig(){
+    int temp = 0;
+
+    if((vec[pos] >= '0' && vec[pos] <='9') && vec[pos+1] == '('){
+        cout << "met" << endl;
+        int left = vec[pos] - '0';
+        ++pos;
+        int res = calcSum();
+        ++pos;
+        return left*res;
+    }
     //Ensure that the digit is a valid number [0-9] && increment pos to move to the next position
-    if(vec[pos] >= '0' && vec[pos] <='9'){
+    else if(vec[pos] >= '0' && vec[pos] <='9'){
+       cout << "pos: " << pos << endl;
         ++pos;
         cout << "tester: " << (vec[pos-1] - '0') << endl;
-        return (vec[pos-1] - '0');
+        int  res = (vec[pos-1] - '0');
+        return res;
+    } 
+    else if(vec[pos] == '('){
+        ++pos; //increment pos
+        int res = calcSum();
+        ++pos; //increment for the ')'
+        return res;
     }
-   
     else{
         cout<<"expected A digit" << endl;
+        //cout << "error: " << vec[pos] << endl;
     }
 }
 
 int  Equation::parseProduct(){
     int num1 = getDig();
     while(vec[pos] == '*'){
-        ++pos;
+        pos++;
         int num2 = getDig();
         num1 *= num2;
     }
@@ -77,11 +95,11 @@ int  Equation::parseProduct(){
 
 int Equation::parseSum(){
     int num1 = parseProduct();
-    cout<<"Num1: "<< num1<<endl;
+    //cout<<"Num1: "<< num1<<endl;
     while(vec[pos] == '+'){
-        ++pos;
+        pos++;
         int num2 = parseProduct();
-      cout<<"Num2: " << num2 << endl;
+        //cout<<"Num2: " << num2 << endl;
         num1 += num2;
     }
 
