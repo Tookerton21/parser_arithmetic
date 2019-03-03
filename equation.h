@@ -10,19 +10,27 @@ class Equation {
     public:
         string str;
         //const.
+        Equation();
         Equation(string);
         //Test function to ensure that the strToVec is working properly 
         void print();
         int getRes();
+        void setStr(string);
+        void parseStr();
+        void parseStr(string);
 
     protected:
         vector<char> vec; //char vector from the string passed in
         map<char, bool> opers; //map for the valid operands
         int pos;
         int res;
+        int prev;
+        bool isPrev;
+
         int calcSum();
         void stringToVec();
         int getDig();
-        int parseProduct();
-        int parseSum();
+        int product();
+        int sum();
+        int number();
 };
