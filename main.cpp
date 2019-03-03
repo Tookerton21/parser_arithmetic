@@ -31,39 +31,48 @@ int main(){
     //Test 1
     str = "1+1";
     expected = 2;
-
-    equation.parseStr(str);
+    //equation.parseStr(str);
+    equation = Equation(str);
     res = equation.getRes();
     check(str,expected, res );
+
     
     //Test 2
     str = "(3+4)*6";
     expected = 42;
-    equation.parseStr(str);
+    //equation.parseStr(str);
+    equation = Equation(str);
     res = equation.getRes();
     check(str,expected, res );
 
+    
     //test 3
     str = "(1*4)+(5*2)";
     expected = 14;
-    equation.parseStr(str);
+    //equation.parseStr(str);
+    equation = Equation(str);
     res = equation.getRes();
     check(str,expected, res );
-
-    /*
+    
+    
+    
     //test 4
     str = "1(4)";
     expected = 4;
-    equation.parseStr(str);
+    //equation.parseStr(str);
+    equation = Equation(str);
     res = equation.getRes();
     check(str,expected, res );
-*/
+
+
+
     //Test 5
-    string str1 = "(10*-2)+3";
-    expected = 23;
-    equation.parseStr(str1);
+    str = "4+10";
+    expected = 14;
+    //equation.parseStr(str);
+    equation = Equation(str);
     res = equation.getRes();
-    check(str1,expected, res );
+    check(str,expected, res );
 
     return 0;
 }
