@@ -28,6 +28,7 @@ int main(){
     int res = 0;
     Equation equation;
 
+
     //Test 1
     str = "1+1";
     expected = 2;
@@ -80,18 +81,31 @@ int main(){
     //test 7
     str = "(-2*2)+2";
     expected = -2;
-    equation.parseStr(str);
-    res = equation.getRes();
-    check(str,expected, res );
- 
- /*
-    //test 8
-    str = "(-10+2)";
-    expected = -8;
     equation = Equation(str);
     res = equation.getRes();
     check(str,expected, res );
-*/
 
+ 
+    //test 8
+    str = "(-10+2)";
+    expected = -8;
+    equation.parseStr(str);
+    res = equation.getRes();
+    check(str,expected, res );
+
+
+    //test 9
+    str = "2*2*(-4*2)";
+    expected = -32;
+    equation = Equation(str);
+    res = equation.getRes();
+    check(str,expected, res );
+
+    //test 10
+    str = "(-20 * 2) * (-10)";
+    expected = 400;
+    equation.parseStr(str);
+    res = equation.getRes();
+    check(str,expected, res );
     return 0;
 }

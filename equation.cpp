@@ -72,7 +72,7 @@ void Equation::stringToVec(){
 int Equation::getDig(){
     
     //Safety that wont execute if if we are out of the boundries of the vecotor
-   if (pos > vec.size()){
+   if (pos >= vec.size()){
        return res;
    }
    
@@ -130,7 +130,11 @@ int Equation::sum(){
 int Equation::number(){
     int num = 0;
     int i = 0;
-    char arr[11]; //uses 11 for max digits of an integer for pos and neg numbers
+    char* arr = new char[11]; //uses 11 for max digits of an integer for pos and neg numbers
+
+    //ensure that the array is wiped completley clean each time!! Otherwise can cause issues
+    for(int i=0; i<11; ++i)
+        arr[i] = '\0';
 
     while(Helper::isValidDig(vec[pos]) || Helper::isNeg(vec, pos)){
         arr[i] = vec[pos];
@@ -140,5 +144,7 @@ int Equation::number(){
     }
     
     num = Helper::getNum(arr);
+    delete[] arr;
+
     return num;
 }
