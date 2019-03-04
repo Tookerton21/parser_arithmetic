@@ -1,13 +1,14 @@
 #include "helper.h"
-#include <iostream>
 #include <cstdlib> 
 
+//convert char array into a number using the atoi 
 int Helper::getNum(char* arr){
 
     int num = atoi(arr);
     return num;
 }
 
+//checks to see if the current char is a valid Digit or not
 bool Helper::isValidDig(char c){
     if(c >= '0' && c <= '9'){
         return true;
@@ -25,8 +26,7 @@ bool Helper::isNeg(std::vector<char>& vec, int pos){
         if(pos == 0){
             return true;
         }
-
-        else if(vec[pos-1] == '(' || vec[pos-1] == '*' || vec[pos] == '+'){
+        else if(vec[pos-1] == '*' || vec[pos-1] == '+' || vec[pos-1] == '('){
             return true;
         }
         else{
@@ -38,13 +38,13 @@ bool Helper::isNeg(std::vector<char>& vec, int pos){
    } 
 }
 
+//check to see that the section of the vector we are working is a multiplication
 bool Helper::isMult(std::vector<char>& vec, int pos){
     if(vec[pos] == '*' ){
-       //printf("*\n");
         return true;
     }
+    
     else if(vec[pos] == '('){
-        //printf("(\n");
         if(pos == 0)
             return false;
 
@@ -55,6 +55,7 @@ bool Helper::isMult(std::vector<char>& vec, int pos){
             return false;
         }
     } 
+    
    
    return false;
 }

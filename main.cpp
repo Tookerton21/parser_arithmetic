@@ -31,7 +31,6 @@ int main(){
     //Test 1
     str = "1+1";
     expected = 2;
-    //equation.parseStr(str);
     equation = Equation(str);
     res = equation.getRes();
     check(str,expected, res );
@@ -40,7 +39,6 @@ int main(){
     //Test 2
     str = "(3+4)*6";
     expected = 42;
-    //equation.parseStr(str);
     equation = Equation(str);
     res = equation.getRes();
     check(str,expected, res );
@@ -49,7 +47,6 @@ int main(){
     //test 3
     str = "(1*4)+(5*2)";
     expected = 14;
-    //equation.parseStr(str);
     equation = Equation(str);
     res = equation.getRes();
     check(str,expected, res );
@@ -59,7 +56,7 @@ int main(){
     //test 4
     str = "1(4)";
     expected = 4;
-    //equation.parseStr(str);
+    
     equation = Equation(str);
     res = equation.getRes();
     check(str,expected, res );
@@ -69,10 +66,32 @@ int main(){
     //Test 5
     str = "4+10";
     expected = 14;
-    //equation.parseStr(str);
     equation = Equation(str);
     res = equation.getRes();
     check(str,expected, res );
+
+    //test 6
+    str = "-100 * 2";
+    expected = -200;
+    equation = Equation(str);
+    res = equation.getRes();
+    check(str,expected, res );
+
+    //test 7
+    str = "(-2*2)+2";
+    expected = -2;
+    equation.parseStr(str);
+    res = equation.getRes();
+    check(str,expected, res );
+ 
+ /*
+    //test 8
+    str = "(-10+2)";
+    expected = -8;
+    equation = Equation(str);
+    res = equation.getRes();
+    check(str,expected, res );
+*/
 
     return 0;
 }

@@ -2,55 +2,34 @@
 #include <cstdlib> 
 #include "helper.h"
 
+//Constructor no parameters
 Equation::Equation(){
     pos = 0;
     res = 0;
 }
+
+//Constructor with a parameter of type string
 Equation::Equation(string st){
-    str = st;
-    stringToVec();
+    str = st; //copy string over
+    stringToVec(); //init the vector
 
-    //Get the Min operands into the map
-    opers['+'] = true;
-    opers['*'] = true;
-
-    //set pos = 0;
+    //Init vars
     pos = 0;
-
-    //set result = 0;
     res = 0;
-
-    //call calcSum()
     res = calcSum();
 }
 
-void Equation::setStr(string s){
-    str = s;
-    pos = 0;
-    res = 0;
-    stringToVec();
-}
-
-void Equation::parseStr(){
-    res = calcSum();
-}
-
+//Allow parsing multiple string for equation
 void Equation::parseStr(string s){
+    //Reset all vars to 0 and parse string 
     this->pos = 0;
     this->res = 0;
     this->str = s;
     stringToVec();
-    //cout << "INSIde PASRESTR\n";
-    //cout << "string: " << str << endl;
-    //cout << "vec: ";
-    //for(auto const& x: vec){
-    //    cout << x << " ";
-    //}
-    //cout << endl;
+
     res = calcSum();
-
-
 }
+
 //Public Function to return the result of the parsing of the Sum
 int Equation::getRes(){
     return res;
@@ -63,108 +42,103 @@ int Equation::calcSum(){
     return res;
 }
 
+//Testing fuction to print the vector
 void Equation::print(){
 
+  cout << "vec: ";
   for(char const& x: vec){
       cout << x;
   }
   cout << endl;
 }
 
+//parse the string that was copied over to a vector char by char
 void Equation::stringToVec(){
+    //if the vector has data in it erease the vector before we data in
     if(vec.size() > 0){
         this->vec.erase(vec.begin(), vec.end());
     }
 
+    //For loop that iterates the string and adds it into the vec
     for(int i=0; i<str.length(); ++i){
-        //eliminate ws
+        //eliminate ws is the string contains any
         if(str[i] != ' '){
             this->vec.push_back(str[i]);
         }
     }
 }
 
+//Gets the digit of the equation 
 int Equation::getDig(){
-   if (pos >= vec.size()){
+    
+    //Safety that wont execute if if we are out of the boundries of the vecotor
+   if (pos > vec.size()){
        return res;
    }
    
+   //If we are in a parenthesis we calculate everything inside of the parenth.
     else if(vec[pos] == '('){
-        ++pos;
-        int num = sum();
-        ++pos;
+        ++pos;//consume the left parenth
+        int num = sum();//calculate the sum 
+        ++pos; //increment past the close parenth
         return num;
     }
 
-    else if(vec[pos] == ')'){
-       ++pos;
-       return res;
-    }
     
-    //Ensure that the digit is a valid number [0-9] && increment pos to move to the next position
+    //Ensure that the digit is a valid number [0-9], along with check if the number is neg && increment pos to move to the next position
     else if(Helper::isValidDig(vec[pos]) || Helper::isNeg(vec, pos)){
         int num = number();
-       
          return num;
     } 
    
-    
-    
-    
+   //if the its an invalid then cout a message and return 0;
     else{
         cout<<"expected A digit" << endl;
+       return 0;
     }
 }
 
+//calculate the product of the equation
 int  Equation::product(){
-    int num1 = getDig();
-    //cout << "PR num1: " << num1 << endl;
+    int num1 = getDig(); //get the digit of the first number
+
+    //look for the secon number if one for multiplication
     while(Helper::isMult(vec, pos)){
         pos++;
         int num2 = product();
-       // cout << "PR num2: " << num2 << endl;
         num1 *= num2;
     }
+
     return num1;
 }
 
+//calculate the sum of the equation
 int Equation::sum(){
-    int num1 = product();
-    //cout << "num1" << endl;
+    int num1 = product(); //get the first number
+   //find the second number for addition if one
     while(vec[pos] == '+'){
         ++pos;
         int num2 = product();
-       // cout << "NUM2: " << num2 << endl;
+        cout << num2 << endl;
         num1 += num2;
     }
  
-    /*
-    if(vec[pos] == '*'){
-        int num2 = product();
-        num1 *= num2;
-    }
-    */
     return num1;
 }
 
+//find the number in the vector, used to find multidigit numbers
 int Equation::number(){
     int num = 0;
     int i = 0;
-    char arr[11];
+    char arr[11]; //uses 11 for max digits of an integer for pos and neg numbers
 
     while(Helper::isValidDig(vec[pos]) || Helper::isNeg(vec, pos)){
         arr[i] = vec[pos];
         ++i;
+      
         ++pos;
     }
     
     num = Helper::getNum(arr);
-    
     return num;
-}
-
-int Equation::parenth(){
-    while(vec[pos] != ')'){
-
-    }
 }
