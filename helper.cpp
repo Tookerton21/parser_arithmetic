@@ -43,22 +43,15 @@ bool Helper::isMult(std::vector<char>& vec, int pos){
     if(vec[pos] == '*' ){
         return true;
     }
-    
-    else if(vec[pos] == '('){
-        if(pos == 0)
-            return false;
 
-        else if(isValidDig(vec[pos-1])){
-            return true;
-        }
-        else {
-            return false;
-        }
-    } 
-    
-   
    return false;
 }
 
 
+bool Helper::isAdd(std::vector<char>& vec, int pos){
+    if(vec[pos] == '+') {
+        return true;
+    }
 
+    return false;
+}

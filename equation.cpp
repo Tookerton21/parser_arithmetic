@@ -8,31 +8,16 @@ Equation::Equation(){
     res = 0;
 }
 
-//Constructor with a parameter of type string
-Equation::Equation(string st){
-    str = st; //copy string over
-    stringToVec(); //init the vector
-
-    //Init vars
+//Allow parsing multiple string for equation
+int Equation::parseStr(string str){
+    //Reset all vars to 0 and parse string 
     pos = 0;
     res = 0;
-    res = calcSum();
-}
+    
+    //Collect the convert vector to 
+    stringToVec(str);
 
-//Allow parsing multiple string for equation
-void Equation::parseStr(string s){
-    //Reset all vars to 0 and parse string 
-    this->pos = 0;
-    this->res = 0;
-    this->str = s;
-    stringToVec();
-
-    res = calcSum();
-}
-
-//Public Function to return the result of the parsing of the Sum
-int Equation::getRes(){
-    return res;
+    return calcSum();
 }
 
 //Main driver to the parser and calls each of the helper function recursively
@@ -53,7 +38,7 @@ void Equation::print(){
 }
 
 //parse the string that was copied over to a vector char by char
-void Equation::stringToVec(){
+void Equation::stringToVec(string str){
     //if the vector has data in it erease the vector before we data in
     if(vec.size() > 0){
         this->vec.erase(vec.begin(), vec.end());
@@ -71,7 +56,7 @@ void Equation::stringToVec(){
 //Gets the digit of the equation 
 int Equation::getDig(){
     
-    //Safety that wont execute if if we are out of the boundries of the vecotor
+   //Safety that wont execute if if we are out of the boundries of the vecotor
    if (pos >= vec.size()){
        return res;
    }
@@ -102,7 +87,7 @@ int Equation::getDig(){
 int  Equation::product(){
     int num1 = getDig(); //get the digit of the first number
 
-    //look for the secon number if one for multiplication
+    //look for the second number if one for multiplication
     while(Helper::isMult(vec, pos)){
         pos++;
         int num2 = product();
@@ -116,10 +101,9 @@ int  Equation::product(){
 int Equation::sum(){
     int num1 = product(); //get the first number
    //find the second number for addition if one
-    while(vec[pos] == '+'){
+    while(Helper::isAdd(vec, pos)){
         ++pos;
         int num2 = product();
-        cout << num2 << endl;
         num1 += num2;
     }
  
@@ -128,23 +112,25 @@ int Equation::sum(){
 
 //find the number in the vector, used to find multidigit numbers
 int Equation::number(){
-    int num = 0;
-    int i = 0;
-    char* arr = new char[11]; //uses 11 for max digits of an integer for pos and neg numbers
-
-    //ensure that the array is wiped completley clean each time!! Otherwise can cause issues
-    for(int i=0; i<11; ++i)
-        arr[i] = '\0';
+   char temp[12];
+   int start = pos;
+   int end = start;
 
     while(Helper::isValidDig(vec[pos]) || Helper::isNeg(vec, pos)){
-        arr[i] = vec[pos];
-        ++i;
-      
+        ++end;
         ++pos;
     }
-    
-    num = Helper::getNum(arr);
-    delete[] arr;
+    //Test to see that the number is within the constraints of the temp array if not just return 0
+    if(end-start > 12){
+        std::cout << "Number is too large!!" << endl;
+        return 0;
+    }
+    else {
+        std::copy(vec.begin() + start, vec.begin() + end, temp);
+    }
+    int num =  Helper::getNum(temp);
+    temp[0] = '\0';
+    //temp = NULL;
 
     return num;
 }

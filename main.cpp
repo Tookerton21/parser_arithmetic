@@ -7,10 +7,11 @@
 
 using namespace std;
 
+const int SIZE = 5;
 struct Test {
     string testCase;
     int expected;
-} tester;
+};
 
 void check(string str, int one, int two){
     cout << str << endl;
@@ -23,89 +24,14 @@ void check(string str, int one, int two){
     }
 }
 int main(){
-    string str;
-    int expected = 0;
-    int res = 0;
+    Test test[SIZE] = {{"-2*(2+2)", -8},{"1+1", 2}, {"(3 + 4) * 6", 42}, {"(1*4)+(5*2)", 14}, {"-10 * (4+-2)", -20}};
     Equation equation;
 
+    for(int i=0; i<SIZE; ++i){
+        check(test[i].testCase, test[i].expected, equation.parseStr(test[i].testCase));
+    }
 
-    //Test 1
-    str = "1+1";
-    expected = 2;
-    equation = Equation(str);
-    res = equation.getRes();
-    check(str,expected, res );
 
     
-    //Test 2
-    str = "(3+4)*6";
-    expected = 42;
-    equation = Equation(str);
-    res = equation.getRes();
-    check(str,expected, res );
-
-    
-    //test 3
-    str = "(1*4)+(5*2)";
-    expected = 14;
-    equation = Equation(str);
-    res = equation.getRes();
-    check(str,expected, res );
-    
-    
-    
-    //test 4
-    str = "1(4)";
-    expected = 4;
-    
-    equation = Equation(str);
-    res = equation.getRes();
-    check(str,expected, res );
-
-
-
-    //Test 5
-    str = "4+10";
-    expected = 14;
-    equation = Equation(str);
-    res = equation.getRes();
-    check(str,expected, res );
-
-    //test 6
-    str = "-100 * 2";
-    expected = -200;
-    equation = Equation(str);
-    res = equation.getRes();
-    check(str,expected, res );
-
-    //test 7
-    str = "(-2*2)+2";
-    expected = -2;
-    equation = Equation(str);
-    res = equation.getRes();
-    check(str,expected, res );
-
- 
-    //test 8
-    str = "(-10+2)";
-    expected = -8;
-    equation.parseStr(str);
-    res = equation.getRes();
-    check(str,expected, res );
-
-
-    //test 9
-    str = "2*2*(-4*2)";
-    expected = -32;
-    equation = Equation(str);
-    res = equation.getRes();
-    check(str,expected, res );
-
-    //test 10
-    str = "(-20 * 2) * (-10)";
-    expected = 400;
-    equation.parseStr(str);
-    res = equation.getRes();
-    check(str,expected, res );
     return 0;
 }
