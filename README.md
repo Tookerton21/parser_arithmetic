@@ -9,12 +9,15 @@ Takes an equation from the user in the form of a string. It will then Parse this
 
 * Works with only + and *
 * Numbers must be an integer and sum must be within an the limitations of an integer for negative and positive.
-* Multiplication must be explicitley stated with * sign between the two numbers.
+* Multiplication must be explicitly stated with * sign between the two numbers.
 
 ### How to use
 
-can create an instance of ```Equation t``` with or without any paramaters for the constructor. To parse any equation after instantiation then must call ```parsStr(string)```. To get what the result from after parsing the string call ```getRes()``` which returns and integer of type int.
+can create an instance of ```Equation t``` with or without any parameters for the constructor. To parse any equation after instantiation then must call ```parsStr(string)```. To get what the result from after parsing the string call ```getRes()``` which returns and integer of type int.
 
 ### Known Bugs
-    * (3/3/19) equations that start with a negative number in parenthesis are not getting parrsed correctly.
+    * (3/3/19) equations that start with a negative number in parenthesis are not getting parsed correctly.
         **(3/4/19) Bug has been fixed. was found in the number() function in equation.cpp. Manually had to loop through array and set each element to \0.
+
+###Update
+    * (3/7/19) Cleaned up the code a bit and took out all previous implementations of trying to do parenthesis multiplication.
