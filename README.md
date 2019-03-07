@@ -19,5 +19,5 @@ can create an instance of ```Equation t``` with or without any parameters for th
     * (3/3/19) equations that start with a negative number in parenthesis are not getting parsed correctly.
         **(3/4/19) Bug has been fixed. was found in the number() function in equation.cpp. Manually had to loop through array and set each element to \0.
 
-###Update
+### Update
     * (3/7/19) Cleaned up the code a bit and took out all previous implementations of trying to do parenthesis multiplication.
