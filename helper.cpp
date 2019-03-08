@@ -1,12 +1,6 @@
 #include "helper.h"
 #include <cstdlib> 
 
-//convert char array into a number using the atoi 
-int Helper::getNum(char* arr){
-
-    int num = atoi(arr);
-    return num;
-}
 
 //checks to see if the current char is a valid Digit or not
 bool Helper::isValidDig(char c){
@@ -38,20 +32,3 @@ bool Helper::isNeg(std::vector<char>& vec, int pos){
    } 
 }
 
-//check to see that the section of the vector we are working is a multiplication
-bool Helper::isMult(std::vector<char>& vec, int pos){
-    if(vec[pos] == '*' ){
-        return true;
-    }
-
-   return false;
-}
-
-
-bool Helper::isAdd(std::vector<char>& vec, int pos){
-    if(vec[pos] == '+') {
-        return true;
-    }
-
-    return false;
-}

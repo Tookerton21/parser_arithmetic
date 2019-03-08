@@ -5,36 +5,17 @@
 //Constructor no parameters
 Equation::Equation(){
     pos = 0;
-    res = 0;
 }
 
 //Allow parsing multiple string for equation
 int Equation::parseStr(string str){
     //Reset all vars to 0 and parse string 
     pos = 0;
-    res = 0;
     
     //Collect the convert vector to 
     stringToVec(str);
 
-    return calcSum();
-}
-
-//Main driver to the parser and calls each of the helper function recursively
-int Equation::calcSum(){
-    int res = sum();
-
-    return res;
-}
-
-//Testing fuction to print the vector
-void Equation::print(){
-
-  cout << "vec: ";
-  for(char const& x: vec){
-      cout << x;
-  }
-  cout << endl;
+    return sum();
 }
 
 //parse the string that was copied over to a vector char by char
@@ -56,16 +37,16 @@ void Equation::stringToVec(string str){
 //Gets the digit of the equation 
 int Equation::getDig(){
     
-   //Safety that wont execute if if we are out of the boundries of the vecotor
+   //Safety that wont execute if if we are out of the boundaries of the vector
    if (pos >= vec.size()){
-       return res;
+       return 0;
    }
    
    //If we are in a parenthesis we calculate everything inside of the parenth.
     else if(vec[pos] == '('){
-        ++pos;//consume the left parenth
+        ++pos;//consume the left parenthesis
         int num = sum();//calculate the sum 
-        ++pos; //increment past the close parenth
+        ++pos; //increment past the close parenthesis
         return num;
     }
 
@@ -88,7 +69,7 @@ int  Equation::product(){
     int num1 = getDig(); //get the digit of the first number
 
     //look for the second number if one for multiplication
-    while(Helper::isMult(vec, pos)){
+    while(vec[pos] == '*'){
         pos++;
         int num2 = product();
         num1 *= num2;
@@ -100,8 +81,8 @@ int  Equation::product(){
 //calculate the sum of the equation
 int Equation::sum(){
     int num1 = product(); //get the first number
-   //find the second number for addition if one
-    while(Helper::isAdd(vec, pos)){
+
+    while(vec[pos] == '+'){ //find the second number for addition if one
         ++pos;
         int num2 = product();
         num1 += num2;
@@ -128,9 +109,8 @@ int Equation::number(){
     else {
         std::copy(vec.begin() + start, vec.begin() + end, temp);
     }
-    int num =  Helper::getNum(temp);
+    int num =  atoi(temp);
     temp[0] = '\0';
-    //temp = NULL;
 
     return num;
 }

@@ -8,13 +8,10 @@ using namespace std;
 
 class Equation {
     public:
-        //var declaration
+
         Equation();
-        Equation(string);
     
         //funtions
-        void print(); //print vector
-        int getRes(); //get the result of the function
         int parseStr(string); //pass string to compute the equation
 
     protected:
@@ -24,7 +21,6 @@ class Equation {
         int res;    //store result
         
 
-        int calcSum();  //calculate the sum of the equation
         void stringToVec(string); //converst the string to the a vector of chars
         int getDig();   //Get the digit from the vector that its currently working on
         int product(); //calculate the product of the equation  
