@@ -15,8 +15,9 @@ Takes an equation from the user in the form of a string. It will then Parse this
 
 There is a tester main.cpp file that will run through a few test cases, print out the string that we wish to parse and valid/invalid.
 
-```c++ -std=c++11 main.cpp equation.cpp helper.cpp```
-```./a.out```
+```$ c++ -std=c++11 main.cpp equation.cpp helper.cpp```
+
+```$ ./a.out```
 
 ### How to use
 
