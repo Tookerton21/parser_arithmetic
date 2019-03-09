@@ -10,6 +10,7 @@ Takes an equation from the user in the form of a string. It will then Parse this
 * Works with only + and *
 * Numbers must be an integer and sum must be within an the limitations of an integer for negative and positive.
 * Multiplication must be explicitly stated with * sign between the two numbers.
+* errors just print out a message that print a message.
 
 ### How To Test Main Program
 
