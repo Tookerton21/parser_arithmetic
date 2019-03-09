@@ -13,25 +13,9 @@ int Equation::parseStr(string str){
     pos = 0;
     
     //Collect the convert vector to 
-    stringToVec(str);
+    Helper::stringToVec(str, vec);
 
     return sum();
-}
-
-//parse the string that was copied over to a vector char by char
-void Equation::stringToVec(string str){
-    //if the vector has data in it erease the vector before we data in
-    if(vec.size() > 0){
-        this->vec.erase(vec.begin(), vec.end());
-    }
-
-    //For loop that iterates the string and adds it into the vec
-    for(int i=0; i<str.length(); ++i){
-        //eliminate ws is the string contains any
-        if(str[i] != ' '){
-            this->vec.push_back(str[i]);
-        }
-    }
 }
 
 //Gets the digit of the equation 
@@ -42,7 +26,7 @@ int Equation::getDig(){
        return 0;
    }
    
-   //If we are in a parenthesis we calculate everything inside of the parenth.
+   //If we are in a parenthesis we calculate everything inside of the parenthesis
     else if(vec[pos] == '('){
         ++pos;//consume the left parenthesis
         int num = sum();//calculate the sum 
@@ -52,7 +36,7 @@ int Equation::getDig(){
 
     
     //Ensure that the digit is a valid number [0-9], along with check if the number is neg && increment pos to move to the next position
-    else if(Helper::isValidDig(vec[pos]) || Helper::isNeg(vec, pos)){
+    else if((vec[pos] >= '0' && vec[pos] <= '9') || Helper::isNeg(vec, pos)){
         int num = number();
          return num;
     } 
@@ -91,18 +75,18 @@ int Equation::sum(){
     return num1;
 }
 
-//find the number in the vector, used to find multidigit numbers
+//find the number in the vector, used to find multi-digit numbers
 int Equation::number(){
    char temp[12];
    int start = pos;
    int end = start;
 
-    while(Helper::isValidDig(vec[pos]) || Helper::isNeg(vec, pos)){
+    while((vec[pos] >= '0' && vec[pos] <= '9') || Helper::isNeg(vec, pos)){
         ++end;
         ++pos;
     }
     //Test to see that the number is within the constraints of the temp array if not just return 0
-    if(end-start > 12){
+    if(end-(start+1) > 12){
         std::cout << "Number is too large!!" << endl;
         return 0;
     }

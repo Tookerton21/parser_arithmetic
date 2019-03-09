@@ -11,20 +11,19 @@ class Equation {
 
         Equation();
     
-        //funtions
+        //functions
         int parseStr(string); //pass string to compute the equation
 
     protected:
-        //Var declaritoin
+        //Var declaration
         vector<char> vec; //char vector from the string passed in
-        int pos;    //positon to access in the vecor
+        int pos;    //position to access in the vector
         int res;    //store result
         
-
-        void stringToVec(string); //converst the string to the a vector of chars
+        //Functions
         int getDig();   //Get the digit from the vector that its currently working on
         int product(); //calculate the product of the equation  
         int sum();  //calculate the sum of the equation
-        int number(); // get the number to include multidigit numbers in the equation
+        int number(); // Convert char array that we are looking at into an int
 
 };

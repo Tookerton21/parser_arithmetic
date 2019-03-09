@@ -1,14 +1,17 @@
 #include "helper.h"
-#include <cstdlib> 
 
-
-//checks to see if the current char is a valid Digit or not
-bool Helper::isValidDig(char c){
-    if(c >= '0' && c <= '9'){
-        return true;
+void Helper::stringToVec(std::string str, std::vector<char>& vec){
+    //if the vector has data in it erase the vector before we data in
+    if(vec.size() > 0){
+        vec.erase(vec.begin(), vec.end());
     }
-    else{
-        return false;
+
+    //For loop that iterates the string and adds it into the vec
+    for(int i=0; i<str.length(); ++i){
+        //eliminate ws is the string contains any
+        if(str[i] != ' '){
+            vec.push_back(str[i]);
+        }
     }
 }
 
