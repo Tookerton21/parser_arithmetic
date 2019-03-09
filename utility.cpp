@@ -1,6 +1,6 @@
-#include "helper.h"
+#include "utility.h"
 
-void Helper::stringToVec(std::string str, std::vector<char>& vec){
+void Utility::stringToVec(std::string str, std::vector<char>& vec){
     //if the vector has data in it erase the vector before we data in
     if(vec.size() > 0){
         vec.erase(vec.begin(), vec.end());
@@ -17,7 +17,7 @@ void Helper::stringToVec(std::string str, std::vector<char>& vec){
 
 //The only time that we will have a negative number with parsing + and * is when 
 // '-' is the first element, after +, * or ( otherwise it will be negative
-bool Helper::isNeg(std::vector<char>& vec, int pos){
+bool Utility::isNeg(std::vector<char>& vec, int pos){
     //Check to see if we are looking at the first element of the char array
    if(vec[pos] == '-'){
         if(pos == 0){

@@ -1,6 +1,6 @@
 #include "equation.h"
 #include <cstdlib> 
-#include "helper.h"
+#include "utility.h"
 
 //Constructor no parameters
 Equation::Equation(){
@@ -13,7 +13,7 @@ int Equation::parseStr(string str){
     pos = 0;
     
     //Collect the convert vector to 
-    Helper::stringToVec(str, vec);
+    Utility::stringToVec(str, vec);
 
     return sum();
 }
@@ -36,7 +36,7 @@ int Equation::getDig(){
 
     
     //Ensure that the digit is a valid number [0-9], along with check if the number is neg && increment pos to move to the next position
-    else if((vec[pos] >= '0' && vec[pos] <= '9') || Helper::isNeg(vec, pos)){
+    else if((vec[pos] >= '0' && vec[pos] <= '9') || Utility::isNeg(vec, pos)){
         int num = number();
          return num;
     } 
@@ -81,7 +81,7 @@ int Equation::number(){
    int start = pos;
    int end = start;
 
-    while((vec[pos] >= '0' && vec[pos] <= '9') || Helper::isNeg(vec, pos)){
+    while((vec[pos] >= '0' && vec[pos] <= '9') || Utility::isNeg(vec, pos)){
         ++end;
         ++pos;
     }

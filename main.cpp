@@ -3,7 +3,7 @@
 #include<string>
 #include<iostream>
 #include"equation.h"
-#include"helper.h"
+#include"utility.h"
 
 using namespace std;
 
